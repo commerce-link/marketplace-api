@@ -4,9 +4,7 @@ import java.util.List;
 
 public interface MarketplaceProvider {
 
-    String name();
-
-    List<MarketplaceOrder> fetchNewOrders();
+    List<MarketplaceOrder> fetchOrders();
 
     void exportOffers(List<MarketplaceOffer> toPublish, List<MarketplaceOffer> toRemove);
 
