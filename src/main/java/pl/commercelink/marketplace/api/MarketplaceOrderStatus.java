@@ -4,5 +4,6 @@ public enum MarketplaceOrderStatus {
     InProgress,
     Shipping,
     Delivered,
-    Completed
+    Completed,
+    Cancelled
 }
