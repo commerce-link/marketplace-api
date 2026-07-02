@@ -8,9 +8,14 @@ public interface MarketplaceProvider {
 
     void exportOffers(List<MarketplaceOffer> toPublish, List<MarketplaceOffer> toRemove);
 
-    void updateOrderStatus(String externalOrderId, MarketplaceOrderStatus status);
+    void acceptOrder(String externalOrderId);
 
-    void updateShipment(String externalOrderId, ShipmentUpdate update);
+    void shipOrder(String externalOrderId, ShipmentUpdate update);
+
+    void cancelOrder(String externalOrderId);
+
+    default void completeOrder(String externalOrderId) {
+    }
 
     void updateInvoice(String externalOrderId, InvoiceUpdate update);
 }
