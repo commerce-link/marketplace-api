@@ -10,6 +10,11 @@ public interface MarketplaceProvider {
 
     void acceptOrder(String externalOrderId);
 
+    /**
+     * Marks the order as shipped. All {@link ShipmentUpdate} fields may be null when the
+     * shipment carries no tracking data (e.g. personal collection) — implementations must
+     * skip tracking-specific calls but still mark the order as shipped.
+     */
     void shipOrder(String externalOrderId, ShipmentUpdate update);
 
     void cancelOrder(String externalOrderId);
