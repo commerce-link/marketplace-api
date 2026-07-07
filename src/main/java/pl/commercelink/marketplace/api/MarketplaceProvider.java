@@ -13,7 +13,10 @@ public interface MarketplaceProvider {
     /**
      * Marks the order as shipped. All {@link ShipmentUpdate} fields may be null when the
      * shipment carries no tracking data (e.g. personal collection) — implementations must
-     * skip tracking-specific calls but still mark the order as shipped.
+     * skip tracking-specific calls. Whether the order is still marked as shipped without a
+     * tracking number is marketplace-dependent: Mirakl (Empik) rejects the ship transition
+     * without a registered tracking number and therefore skips it, whereas Ceneo/Morele
+     * still mark the order shipped.
      */
     void shipOrder(String externalOrderId, ShipmentUpdate update);
 
