@@ -8,6 +8,14 @@ public interface MarketplaceProvider {
 
     void exportOffers(List<MarketplaceOffer> toPublish, List<MarketplaceOffer> toRemove);
 
+    /**
+     * Accepts the order on the marketplace. Implementations must be idempotent: the same order
+     * may be accepted more than once, because lifecycle events are delivered at-least-once and
+     * the caller may re-issue an accept for an order it has already accepted. A repeated accept
+     * must therefore be a no-op rather than an error. Where the marketplace rejects a repeated
+     * accept, gate the call on the order's live state on the marketplace — never on locally
+     * cached state, which goes stale as soon as the order is changed on the marketplace panel.
+     */
     void acceptOrder(String externalOrderId);
 
     /**
