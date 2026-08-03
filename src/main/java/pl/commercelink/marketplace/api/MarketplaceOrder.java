@@ -9,6 +9,17 @@ public record MarketplaceOrder(
         List<MarketplaceProduct> products,
         BigDecimal shippingCost,
         String paymentType,
-        String paymentTransactionId
+        String paymentTransactionId,
+        String deliveryCarrier
 ) {
+
+    public MarketplaceOrder(
+            String externalOrderId,
+            MarketplaceCustomer customer,
+            List<MarketplaceProduct> products,
+            BigDecimal shippingCost,
+            String paymentType,
+            String paymentTransactionId) {
+        this(externalOrderId, customer, products, shippingCost, paymentType, paymentTransactionId, null);
+    }
 }

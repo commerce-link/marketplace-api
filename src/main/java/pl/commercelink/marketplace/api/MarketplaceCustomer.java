@@ -30,6 +30,10 @@ public record MarketplaceCustomer(
         }
     }
 
-    public record PickupPoint(String id, String name) {
+    public record PickupPoint(String id, String name, String operator) {
+
+        public PickupPoint(String id, String name) {
+            this(id, name, null);
+        }
     }
 }
