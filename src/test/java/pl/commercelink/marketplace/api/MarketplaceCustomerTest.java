@@ -2,30 +2,39 @@ package pl.commercelink.marketplace.api;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class MarketplaceCustomerTest {
 
-    @Test
-    void sixArgAddressConstructorDefaultsPickupPointToNull() {
-        // given / when
-        MarketplaceCustomer.Address address = new MarketplaceCustomer.Address(
-                "Jan Kowalski", "+48123123123", "Prosta 1", "00-001", "Warszawa", "PL");
+    private enum TestCarrier { INPOST }
 
-        // then
-        assertNull(address.pickupPoint());
+    private MarketplaceOrder<TestCarrier> orderWith(String pickupPointCode) {
+        return new MarketplaceOrder<>("o-1", null, List.of(), BigDecimal.ZERO,
+                "DirectDebit", "tx-1", TestCarrier.INPOST, pickupPointCode);
     }
 
     @Test
-    void addressCarriesStructuredPickupPoint() {
-        // given / when
-        MarketplaceCustomer.Address address = new MarketplaceCustomer.Address(
-                "Jan Kowalski", "+48123123123", "Prosta 1", "00-001", "Warszawa", "PL",
-                new MarketplaceCustomer.PickupPoint("ALP123", "Paczkomat ALP123"));
+    void theOrderCarriesTheChosenPickupPointCode() {
+        // when
+        MarketplaceOrder<TestCarrier> order = orderWith("KRA01M");
 
         // then
-        assertEquals("ALP123", address.pickupPoint().id());
-        assertEquals("Paczkomat ALP123", address.pickupPoint().name());
+        assertEquals("KRA01M", order.pickupPointCode());
+        assertEquals(TestCarrier.INPOST, order.deliveryCarrier());
+    }
+
+    @Test
+    void shortConstructorLeavesCarrierAndPointUnset() {
+        // when
+        MarketplaceOrder<TestCarrier> order = new MarketplaceOrder<>(
+                "o-2", null, List.of(), BigDecimal.ZERO, "DirectDebit", "tx-2");
+
+        // then
+        assertNull(order.deliveryCarrier());
+        assertNull(order.pickupPointCode());
     }
 }

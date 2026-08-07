@@ -10,7 +10,8 @@ public record MarketplaceOrder<C extends Enum<C>>(
         BigDecimal shippingCost,
         String paymentType,
         String paymentTransactionId,
-        C deliveryCarrier
+        C deliveryCarrier,
+        String pickupPointCode
 ) {
 
     public MarketplaceOrder(
@@ -20,6 +21,6 @@ public record MarketplaceOrder<C extends Enum<C>>(
             BigDecimal shippingCost,
             String paymentType,
             String paymentTransactionId) {
-        this(externalOrderId, customer, products, shippingCost, paymentType, paymentTransactionId, null);
+        this(externalOrderId, customer, products, shippingCost, paymentType, paymentTransactionId, null, null);
     }
 }
