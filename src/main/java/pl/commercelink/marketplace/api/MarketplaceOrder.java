@@ -3,14 +3,14 @@ package pl.commercelink.marketplace.api;
 import java.math.BigDecimal;
 import java.util.List;
 
-public record MarketplaceOrder(
+public record MarketplaceOrder<C extends Enum<C>>(
         String externalOrderId,
         MarketplaceCustomer customer,
         List<MarketplaceProduct> products,
         BigDecimal shippingCost,
         String paymentType,
         String paymentTransactionId,
-        String deliveryCarrier
+        C deliveryCarrier
 ) {
 
     public MarketplaceOrder(

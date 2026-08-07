@@ -2,9 +2,9 @@ package pl.commercelink.marketplace.api;
 
 import java.util.List;
 
-public interface MarketplaceProvider {
+public interface MarketplaceProvider<C extends Enum<C>> {
 
-    List<MarketplaceOrder> fetchOrders();
+    List<MarketplaceOrder<C>> fetchOrders();
 
     void exportOffers(List<MarketplaceOffer> toPublish, List<MarketplaceOffer> toRemove);
 
