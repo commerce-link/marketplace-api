@@ -7,30 +7,30 @@ public interface AliasedCarrier {
 
     List<String> aliases();
 
-    default boolean matchesExactly(String input) {
-        String normalized = input.trim();
-        return normalized.equalsIgnoreCase(((Enum<?>) this).name())
-                || aliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(normalized));
-    }
-
-    default boolean contains(String input) {
-        String normalized = input.trim().toUpperCase();
-        String name = ((Enum<?>) this).name();
-        return normalized.contains(name.replace('_', ' '))
-                || normalized.contains(name)
-                || aliases().stream().anyMatch(alias -> normalized.contains(alias.toUpperCase()));
-    }
-
     static <E extends Enum<E> & AliasedCarrier> E deserialize(E[] values, String code) {
         if (code == null || code.isBlank()) {
             return null;
         }
         return Arrays.stream(values)
-                .filter(carrier -> carrier.matchesExactly(code))
+                .filter(carrier -> matchesExactly(carrier, code))
                 .findFirst()
                 .orElseGet(() -> Arrays.stream(values)
-                        .filter(carrier -> carrier.contains(code))
+                        .filter(carrier -> contains(carrier, code))
                         .findFirst()
                         .orElse(null));
+    }
+
+    private static <E extends Enum<E> & AliasedCarrier> boolean matchesExactly(E carrier, String input) {
+        String normalized = input.trim();
+        return normalized.equalsIgnoreCase(carrier.name())
+                || carrier.aliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(normalized));
+    }
+
+    private static <E extends Enum<E> & AliasedCarrier> boolean contains(E carrier, String input) {
+        String normalized = input.trim().toUpperCase();
+        String name = carrier.name();
+        return normalized.contains(name.replace('_', ' '))
+                || normalized.contains(name)
+                || carrier.aliases().stream().anyMatch(alias -> normalized.contains(alias.toUpperCase()));
     }
 }
