@@ -21,15 +21,7 @@ public record MarketplaceCustomer(
             String street,
             String postalCode,
             String city,
-            String country,
-            PickupPoint pickupPoint
+            String country
     ) {
-
-        public Address(String name, String phone, String street, String postalCode, String city, String country) {
-            this(name, phone, street, postalCode, city, country, null);
-        }
-    }
-
-    public record PickupPoint(String id, String name) {
     }
 }
