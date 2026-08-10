@@ -10,27 +10,25 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class MarketplaceCustomerTest {
 
-    private enum TestCarrier { INPOST }
-
-    private MarketplaceOrder<TestCarrier> orderWith(PickupPoint pickupPoint) {
-        return new MarketplaceOrder<>("o-1", null, List.of(), BigDecimal.ZERO,
-                "DirectDebit", "tx-1", TestCarrier.INPOST, pickupPoint);
+    private MarketplaceOrder orderWith(PickupPoint pickupPoint) {
+        return new MarketplaceOrder("o-1", null, List.of(), BigDecimal.ZERO,
+                "DirectDebit", "tx-1", "INPOST", pickupPoint);
     }
 
     @Test
     void theOrderCarriesTheChosenPickupPoint() {
         // when
-        MarketplaceOrder<TestCarrier> order = orderWith(new PickupPoint("KRA01M"));
+        MarketplaceOrder order = orderWith(new PickupPoint("KRA01M"));
 
         // then
         assertEquals("KRA01M", order.pickupPoint().code());
-        assertEquals(TestCarrier.INPOST, order.deliveryCarrier());
+        assertEquals("INPOST", order.deliveryCarrier());
     }
 
     @Test
     void shortConstructorLeavesCarrierAndPointUnset() {
         // when
-        MarketplaceOrder<TestCarrier> order = new MarketplaceOrder<>(
+        MarketplaceOrder order = new MarketplaceOrder(
                 "o-2", null, List.of(), BigDecimal.ZERO, "DirectDebit", "tx-2");
 
         // then
