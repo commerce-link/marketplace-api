@@ -11,7 +11,7 @@ public record MarketplaceOrder<C extends Enum<C>>(
         String paymentType,
         String paymentTransactionId,
         C deliveryCarrier,
-        String pickupPointCode
+        PickupPoint pickupPoint
 ) {
 
     public MarketplaceOrder(

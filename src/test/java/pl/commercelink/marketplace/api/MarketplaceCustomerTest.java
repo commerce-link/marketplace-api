@@ -12,18 +12,18 @@ class MarketplaceCustomerTest {
 
     private enum TestCarrier { INPOST }
 
-    private MarketplaceOrder<TestCarrier> orderWith(String pickupPointCode) {
+    private MarketplaceOrder<TestCarrier> orderWith(PickupPoint pickupPoint) {
         return new MarketplaceOrder<>("o-1", null, List.of(), BigDecimal.ZERO,
-                "DirectDebit", "tx-1", TestCarrier.INPOST, pickupPointCode);
+                "DirectDebit", "tx-1", TestCarrier.INPOST, pickupPoint);
     }
 
     @Test
-    void theOrderCarriesTheChosenPickupPointCode() {
+    void theOrderCarriesTheChosenPickupPoint() {
         // when
-        MarketplaceOrder<TestCarrier> order = orderWith("KRA01M");
+        MarketplaceOrder<TestCarrier> order = orderWith(new PickupPoint("KRA01M"));
 
         // then
-        assertEquals("KRA01M", order.pickupPointCode());
+        assertEquals("KRA01M", order.pickupPoint().code());
         assertEquals(TestCarrier.INPOST, order.deliveryCarrier());
     }
 
@@ -35,6 +35,6 @@ class MarketplaceCustomerTest {
 
         // then
         assertNull(order.deliveryCarrier());
-        assertNull(order.pickupPointCode());
+        assertNull(order.pickupPoint());
     }
 }
