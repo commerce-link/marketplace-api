@@ -12,7 +12,7 @@ class MarketplaceCustomerTest {
 
     private MarketplaceOrder orderWith(PickupPoint pickupPoint) {
         return new MarketplaceOrder("o-1", null, List.of(), BigDecimal.ZERO,
-                "DirectDebit", "tx-1", "INPOST", pickupPoint);
+                "INPOST", "DirectDebit", "tx-1", pickupPoint);
     }
 
     @Test
@@ -22,7 +22,7 @@ class MarketplaceCustomerTest {
 
         // then
         assertEquals("KRA01M", order.pickupPoint().code());
-        assertEquals("INPOST", order.deliveryCarrier());
+        assertEquals("INPOST", order.shippingCarrier());
     }
 
     @Test
@@ -32,7 +32,7 @@ class MarketplaceCustomerTest {
                 "o-2", null, List.of(), BigDecimal.ZERO, "DirectDebit", "tx-2");
 
         // then
-        assertNull(order.deliveryCarrier());
+        assertNull(order.shippingCarrier());
         assertNull(order.pickupPoint());
     }
 }
