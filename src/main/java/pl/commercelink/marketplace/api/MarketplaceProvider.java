@@ -1,6 +1,7 @@
 package pl.commercelink.marketplace.api;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MarketplaceProvider {
 
@@ -33,4 +34,12 @@ public interface MarketplaceProvider {
     }
 
     void updateInvoice(String externalOrderId, InvoiceUpdate update);
+
+    /**
+     * Customer-returns support. Empty when the marketplace exposes no returns API; the app then
+     * never imports returns from, nor pushes return decisions to, this marketplace.
+     */
+    default Optional<MarketplaceReturns> returns() {
+        return Optional.empty();
+    }
 }
