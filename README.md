@@ -17,3 +17,11 @@ the marketplace has no returns API and the app skips both return import and retu
 `MarketplaceReturns` = `fetchReturns()` (stateless poll), `refundReturn(...)` (idempotent by
 `ReturnRefund.commandId`), `rejectReturn(...)` (idempotent by live state). `MarketplaceReturn.Item.manufacturerCode`
 uses the same key as `MarketplaceProduct.manufacturerCode` so the app can match order items.
+
+### MarketplaceReturnStatus
+
+Consumers persist these constant names (the app stores them on `RMA.externalReturnStatus` via
+`@DynamoDBTypeConvertedEnum`). Renaming or removing a constant is a breaking change — bump the major
+version, and never roll an app back past a release that introduced a new constant: a stored string with
+no matching constant throws on read, and because the returns lookup queries the whole store partition,
+one bad record breaks both returns import and the RMA search for that entire store.
