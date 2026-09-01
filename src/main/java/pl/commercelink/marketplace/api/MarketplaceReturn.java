@@ -14,6 +14,11 @@ public record MarketplaceReturn(
         List<Parcel> parcels
 ) {
 
+    public MarketplaceReturn {
+        items = items == null ? List.of() : items;
+        parcels = parcels == null ? List.of() : parcels;
+    }
+
     /** manufacturerCode uses the same key as {@link MarketplaceProduct#manufacturerCode()} at order import. */
     public record Item(String manufacturerCode, int quantity, BigDecimal unitPriceGross, String reason) {
     }
