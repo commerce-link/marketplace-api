@@ -8,33 +8,21 @@ public record MarketplaceOrder(
         String externalOrderId,
         MarketplaceCustomer customer,
         List<MarketplaceProduct> products,
-        BigDecimal shippingCost,
-        String shippingCarrier,
-        String paymentType,
-        String paymentTransactionId,
-        PickupPoint pickupPoint,
-        LocalDate estimatedShippingAt
+        Shipping shipping,
+        Payment payment
 ) {
 
-    public MarketplaceOrder(
-            String externalOrderId,
-            MarketplaceCustomer customer,
-            List<MarketplaceProduct> products,
-            BigDecimal shippingCost,
-            String paymentType,
-            String paymentTransactionId) {
-        this(externalOrderId, customer, products, shippingCost, null, paymentType, paymentTransactionId, null, null);
+    public record Shipping(
+            BigDecimal cost,
+            String carrier,
+            PickupPoint pickupPoint,
+            LocalDate estimatedShippingAt
+    ) {
+        public static Shipping of(BigDecimal cost) {
+            return new Shipping(cost, null, null, null);
+        }
     }
 
-    public MarketplaceOrder(
-            String externalOrderId,
-            MarketplaceCustomer customer,
-            List<MarketplaceProduct> products,
-            BigDecimal shippingCost,
-            String shippingCarrier,
-            String paymentType,
-            String paymentTransactionId,
-            PickupPoint pickupPoint) {
-        this(externalOrderId, customer, products, shippingCost, shippingCarrier, paymentType, paymentTransactionId, pickupPoint, null);
+    public record Payment(String type, String transactionId) {
     }
 }
