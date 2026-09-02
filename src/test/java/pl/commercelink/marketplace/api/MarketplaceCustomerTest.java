@@ -15,7 +15,7 @@ class MarketplaceCustomerTest {
     private MarketplaceOrder orderWith(PickupPoint pickupPoint) {
         return new MarketplaceOrder("o-1", null, List.of(),
                 new MarketplaceOrder.Shipping(BigDecimal.ZERO, "INPOST", pickupPoint, LocalDate.of(2026, 9, 3)),
-                new MarketplaceOrder.Payment("DirectDebit", "tx-1"));
+                "DirectDebit", "tx-1");
     }
 
     @Test
@@ -33,7 +33,7 @@ class MarketplaceCustomerTest {
     void shippingOfCostLeavesTheRestUnset() {
         MarketplaceOrder order = new MarketplaceOrder("o-2", null, List.of(),
                 MarketplaceOrder.Shipping.of(BigDecimal.ZERO),
-                new MarketplaceOrder.Payment("DirectDebit", "tx-2"));
+                "DirectDebit", "tx-2");
 
         assertEquals(BigDecimal.ZERO, order.shipping().cost());
         assertNull(order.shipping().carrier());
