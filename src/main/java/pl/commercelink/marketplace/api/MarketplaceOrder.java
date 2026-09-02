@@ -9,7 +9,8 @@ public record MarketplaceOrder(
         MarketplaceCustomer customer,
         List<MarketplaceProduct> products,
         Shipping shipping,
-        Payment payment
+        String paymentType,
+        String paymentTransactionId
 ) {
 
     public record Shipping(
@@ -21,8 +22,5 @@ public record MarketplaceOrder(
         public static Shipping of(BigDecimal cost) {
             return new Shipping(cost, null, null, null);
         }
-    }
-
-    public record Payment(String type, String transactionId) {
     }
 }
