@@ -1,26 +1,26 @@
 package pl.commercelink.marketplace.api;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public record MarketplaceOrder(
         String externalOrderId,
         MarketplaceCustomer customer,
         List<MarketplaceProduct> products,
-        BigDecimal shippingCost,
-        String shippingCarrier,
+        Shipping shipping,
         String paymentType,
-        String paymentTransactionId,
-        PickupPoint pickupPoint
+        String paymentTransactionId
 ) {
 
-    public MarketplaceOrder(
-            String externalOrderId,
-            MarketplaceCustomer customer,
-            List<MarketplaceProduct> products,
-            BigDecimal shippingCost,
-            String paymentType,
-            String paymentTransactionId) {
-        this(externalOrderId, customer, products, shippingCost, null, paymentType, paymentTransactionId, null);
+    public record Shipping(
+            BigDecimal cost,
+            String carrier,
+            PickupPoint pickupPoint,
+            LocalDate estimatedShippingAt
+    ) {
+        public static Shipping of(BigDecimal cost) {
+            return new Shipping(cost, null, null, null);
+        }
     }
 }
