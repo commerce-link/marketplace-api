@@ -15,6 +15,7 @@ import java.util.List;
 public record MarketplaceReturn(
         String externalReturnId,
         String externalOrderId,
+        String referenceNumber,
         MarketplaceReturnStatus status,
         LocalDateTime createdAt,
         List<Item> items,

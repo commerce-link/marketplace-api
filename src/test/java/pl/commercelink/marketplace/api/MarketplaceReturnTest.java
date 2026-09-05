@@ -11,7 +11,7 @@ class MarketplaceReturnTest {
     @Test
     void normalisesNullCollectionsToEmptyLists() {
         // given / when
-        MarketplaceReturn ret = new MarketplaceReturn("r-1", "o-1", MarketplaceReturnStatus.DECLARED,
+        MarketplaceReturn ret = new MarketplaceReturn("r-1", "o-1", "REF", MarketplaceReturnStatus.DECLARED,
                 LocalDateTime.now(), null, null);
 
         // then: consumers iterate these without a null check

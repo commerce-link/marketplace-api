@@ -15,7 +15,7 @@ Concrete implementations are discovered at runtime via `ServiceLoader`. See the 
 `MarketplaceProvider.returns()` returns `Optional<MarketplaceReturns>`; the default is empty, meaning
 the marketplace has no returns API and the app skips both return import and return decisions for it.
 `MarketplaceReturns` = `fetchReturns()` (stateless poll), `refundReturn(...)` (idempotent by
-`ReturnRefund.idempotencyKey`), `rejectReturn(...)` (idempotent by live state). 
+`ReturnRefund.idempotencyKey`), `rejectReturn(...)` (idempotent by live state).
 `MarketplaceReturn.Item.offerKey` is the key used at order import (`MarketplaceProduct.manufacturerCode`);
 the app hands it back verbatim in `ReturnRefund.Item.offerKey`. `ReturnRefund.idempotencyKey` is stable across
 redeliveries; a marketplace without native idempotency must gate the refund on the live return state.
