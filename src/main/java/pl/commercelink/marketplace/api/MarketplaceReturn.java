@@ -11,6 +11,10 @@ import java.util.List;
  * {@code parcels} become the RMA's shipments and are filled in on the first poll on which they appear
  * (later changes to parcels are ignored). {@code Parcel.carrierId} is the marketplace's own carrier
  * identifier, stored on the shipment without translation.
+ *
+ * <p>{@code referenceNumber} is the marketplace's own buyer-facing reference for the return (Allegro:
+ * "XGQX/2026"); null when the marketplace has none, in which case consumers fall back to
+ * {@code externalReturnId}. It is shown to operators and must never be the internal return id.
  */
 public record MarketplaceReturn(
         String externalReturnId,

@@ -20,6 +20,8 @@ the marketplace has no returns API and the app skips both return import and retu
 the app hands it back verbatim in `ReturnRefund.Item.offerKey`. `ReturnRefund.idempotencyKey` is stable across
 redeliveries; a marketplace without native idempotency must gate the refund on the live return state.
 `refundReturn` is called once per accepted batch (partial refunds add up on the marketplace side).
+`MarketplaceReturn.referenceNumber` is the marketplace's buyer-facing reference (e.g. Allegro `XGQX/2026`),
+optional; consumers fall back to `externalReturnId`.
 
 ### MarketplaceReturnStatus
 
