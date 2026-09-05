@@ -13,15 +13,16 @@ public interface MarketplaceReturns {
     List<MarketplaceReturn> fetchReturns();
 
     /**
-     * Refunds the buyer for the returned items. Events are delivered at-least-once, so a
-     * repeated call with the same {@link ReturnRefund#commandId()} must not refund twice.
+     * Refunds the buyer for the returned items; see {@link ReturnRefund} for the partial-refund and
+     * idempotency contract. Any exception is retried by the app (SQS redelivery, then DLQ) — including
+     * 4xx errors that a retry cannot fix, because the app does not yet distinguish terminal from transient
+     * failures. Throw before any money-moving call when the request cannot be built.
      */
     void refundReturn(String externalOrderId, String externalReturnId, ReturnRefund refund);
 
     /**
-     * Rejects the return with a reason shown to the buyer. Must be idempotent: gate on the live
-     * state of the return on the marketplace (already rejected / already refunded is a no-op),
-     * never on cached state.
+     * Rejects the return with a reason shown to the buyer. Must be idempotent: gate on the live state of
+     * the return on the marketplace (already rejected / already refunded is a no-op), never on cached state.
      */
     void rejectReturn(String externalReturnId, ReturnRejection rejection);
 }
