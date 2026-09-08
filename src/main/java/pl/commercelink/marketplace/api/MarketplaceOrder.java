@@ -6,12 +6,24 @@ import java.util.List;
 
 public record MarketplaceOrder(
         String externalOrderId,
+        String externalSupplierId,
         MarketplaceCustomer customer,
         List<MarketplaceProduct> products,
         Shipping shipping,
         String paymentType,
         String paymentTransactionId
 ) {
+
+    public MarketplaceOrder(
+            String externalOrderId,
+            MarketplaceCustomer customer,
+            List<MarketplaceProduct> products,
+            Shipping shipping,
+            String paymentType,
+            String paymentTransactionId
+    ) {
+        this(externalOrderId, null, customer, products, shipping, paymentType, paymentTransactionId);
+    }
 
     public record Shipping(
             BigDecimal cost,
