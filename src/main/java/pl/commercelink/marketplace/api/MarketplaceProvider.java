@@ -9,6 +9,12 @@ public interface MarketplaceProvider {
 
     void exportOffers(List<MarketplaceOffer> toPublish, List<MarketplaceOffer> toRemove);
 
+    default void exportOffers(List<MarketplaceOffer> toPublish,
+                              List<MarketplaceOffer> toRemove,
+                              MarketplaceExportReport report) {
+        exportOffers(toPublish, toRemove);
+    }
+
     /**
      * Accepts the order on the marketplace. Implementations must be idempotent: the same order
      * may be accepted more than once, because lifecycle events are delivered at-least-once and
