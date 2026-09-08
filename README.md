@@ -10,7 +10,7 @@ This library extends the [provider-api](https://github.com/commerce-link/provide
 
 Concrete implementations are discovered at runtime via `ServiceLoader`. See the [provider-api README](https://github.com/commerce-link/provider-api) for registration details.
 
-## Customer returns (0.5.0)
+## Customer returns (0.6.0)
 
 `MarketplaceProvider.returns()` returns `Optional<MarketplaceReturns>`; the default is empty, meaning
 the marketplace has no returns API and the app skips both return import and return decisions for it.
