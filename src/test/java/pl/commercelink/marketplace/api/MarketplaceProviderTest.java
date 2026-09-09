@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -77,5 +78,21 @@ class MarketplaceProviderTest {
         // then
         assertTrue(reported.isEmpty());
         assertEquals(1, provider.publishedOffers.size());
+    }
+
+    @Test
+    void returnsAreAbsentByDefault() {
+        // when / then
+        assertTrue(new RecordingProvider().returns().isEmpty());
+    }
+
+    @Test
+    void refundedAndRejectedStatusesAreClosed() {
+        // when / then
+        assertTrue(MarketplaceReturnStatus.REFUNDED.isClosed());
+        assertTrue(MarketplaceReturnStatus.REJECTED.isClosed());
+        assertFalse(MarketplaceReturnStatus.DECLARED.isClosed());
+        assertFalse(MarketplaceReturnStatus.IN_TRANSIT.isClosed());
+        assertFalse(MarketplaceReturnStatus.DELIVERED.isClosed());
     }
 }
