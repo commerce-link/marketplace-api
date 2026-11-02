@@ -87,6 +87,12 @@ class MarketplaceProviderTest {
     }
 
     @Test
+    void providerHasNoOfferListingByDefault() {
+        // when / then
+        assertTrue(new RecordingProvider().offers().isEmpty());
+    }
+
+    @Test
     void refundedAndRejectedStatusesAreClosed() {
         // when / then
         assertTrue(MarketplaceReturnStatus.REFUNDED.isClosed());

@@ -7,4 +7,8 @@ public interface MarketplaceProviderDescriptor extends ProviderDescriptor<Market
     default boolean supportsReturns() {
         return false;
     }
+
+    default boolean supportsOfferListing() {
+        return false;
+    }
 }
