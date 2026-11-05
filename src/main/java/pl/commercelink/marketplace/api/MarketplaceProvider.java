@@ -48,4 +48,12 @@ public interface MarketplaceProvider {
     default Optional<MarketplaceReturns> returns() {
         return Optional.empty();
     }
+
+    /**
+     * Read-only listing of the seller's offers on the marketplace. Empty when the marketplace
+     * exposes no such API; the app then cannot link foreign offers to products for it.
+     */
+    default Optional<MarketplaceOffers> offers() {
+        return Optional.empty();
+    }
 }
